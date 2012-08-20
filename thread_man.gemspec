@@ -8,7 +8,7 @@ Gem::Specification.new do |gem|
   gem.version       = ThreadMans::VERSION
   gem.authors       = ['Kapil']
   gem.email         = ['kapil.israni@gmail.com']
-  gem.description   = 'ThreadMan uses Celluloid to abstract out conurrent requests pattern.'
+  gem.description   = 'ThreadMan uses Celluloid to abstract out concurrent requests pattern.'
   gem.summary       = gem.description
   gem.homepage      = 'http://github.com/kapso/thread_man'
 

@@ -1,8 +1,8 @@
-# ThreadMan
+## ThreadMan
 
-ThreadMan uses "Celluloid" to abstract out conurrent requests pattern.
+ThreadMan uses `Celluloid` to abstract out concurrent requests pattern.
 
-## Installation
+### Installation
 
 Add this line to your application's Gemfile:
 
@@ -16,7 +16,9 @@ Or install it yourself as:
 
     $ gem install thread_man
 
-## Usage
+### Usage
+
+Sample celluloid object:
 
 ```ruby
 class Car
@@ -38,26 +40,33 @@ class Car
 end
 ```
 
+ThreadMan usage inside a rails controller to make async requests:
+
 ```ruby
 class HomeController < ApplicationController
   def index
     car = Car.new(70)
     tm = ThreadMan.new(car)
 
-    # Async method invocation "drive" method async
+    # Async invocation of `drive` method.
     4.times { tm.submit(:drive, 76) }
 
     # Get response to first submitted request. Blocking request.
     tm.next_response
 
-    # Get all responses for the submitted requests. Blocking request, array of responses. 
-    # Order is the same as the "submit" order
+    # Get all responses for the submitted requests. Blocking request.
+    # Array of responses. Order is the same as the "submit" order.
     response = tm.response
+
+    # NOTE: This is required for GC. Ideally you will call this inside `ensure`
+    tm.terminate!
+
+    render json: response
   end
 end
 ```
 
-## Contributing
+### Contributing
 
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
