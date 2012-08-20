@@ -1,4 +1,4 @@
-## ThreadMan
+## ThreadMan [![Build Status](https://secure.travis-ci.org/kapso/thread_man.png)](http://travis-ci.org/kapso/thread_man)
 
 ThreadMan uses `Celluloid` to abstract out concurrent requests pattern.
 
