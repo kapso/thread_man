@@ -33,10 +33,6 @@ class Car
     sleep [1, 1.5, 2].sample
     { name: @name, current_speed: speed, start_speed: @start_speed }
   end
-
-  def start_speed
-    @start_speed
-  end
 end
 ```
 
@@ -51,20 +47,20 @@ class HomeController < ApplicationController
     # Async invocation of "drive" method.
     4.times { tm.submit(:drive, 76) }
 
-    # Check if tasks are still running.
+    # Check if async tasks are still running.
     puts "\nTasks running: #{tm.tasks_running?}"
 
     # Get response of first submitted request. This call will block until a response is returned.
-    tm.next_response
+    first_response = tm.next_response
 
     # Get all responses for the submitted requests. Blocking call.
     # Array of responses. Order is the same as the "submit" order.
-    response = tm.response
+    all_responses = tm.response
 
     # NOTE: This is required for GC. Ideally you will call this inside "ensure"
     tm.terminate!
 
-    render json: response
+    render json: all_responses
   end
 end
 ```
