@@ -18,7 +18,7 @@ Or install it yourself as:
 
 ### Usage
 
-Sample celluloid object:
+Sample `Celluloid` object:
 
 ```ruby
 class Car
