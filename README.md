@@ -48,17 +48,20 @@ class HomeController < ApplicationController
     car = Car.new(70)
     tm = ThreadMan.new(car)
 
-    # Async invocation of `drive` method.
+    # Async invocation of "drive" method.
     4.times { tm.submit(:drive, 76) }
 
-    # Get response to first submitted request. Blocking request.
+    # Check if tasks are still running.
+    puts "\nTasks running: #{am.tasks_running?}"
+
+    # Get response of first submitted request. This call will block until a response is returned.
     tm.next_response
 
-    # Get all responses for the submitted requests. Blocking request.
+    # Get all responses for the submitted requests. Blocking call.
     # Array of responses. Order is the same as the "submit" order.
     response = tm.response
 
-    # NOTE: This is required for GC. Ideally you will call this inside `ensure`
+    # NOTE: This is required for GC. Ideally you will call this inside "ensure"
     tm.terminate!
 
     render json: response
