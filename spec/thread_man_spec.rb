@@ -10,6 +10,7 @@ class Car
 
   def drive(speed = 80)
     sleep [1, 1.5, 2].sample
+    raise "You cannot drive at 100 or more." if speed >= 100
     { name: @name, current_speed: speed, start_speed: @start_speed }
   end
 
@@ -19,7 +20,7 @@ class Car
 end
 
 describe ThreadMan do
-  let(:thread_count) { 10 }
+  let(:thread_count) { 5 }
   let(:car_start_speed) { rand(70) }
   let(:car) { Car.new(car_start_speed) }
 
@@ -36,6 +37,11 @@ describe ThreadMan do
     end
 
     it "should throw an exception when getting response without submitting actor requests" do
+      expect { tm.response }.to raise_error
+    end
+
+    it "should raise an error on response" do
+      tm.submit(:drive, 100)
       expect { tm.response }.to raise_error
     end
   end
