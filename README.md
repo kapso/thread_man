@@ -52,7 +52,7 @@ class HomeController < ApplicationController
     4.times { tm.submit(:drive, 76) }
 
     # Check if tasks are still running.
-    puts "\nTasks running: #{am.tasks_running?}"
+    puts "\nTasks running: #{tm.tasks_running?}"
 
     # Get response of first submitted request. This call will block until a response is returned.
     tm.next_response
